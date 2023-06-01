@@ -1,14 +1,15 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
+const connectDb = (handler) => async (req, res) => {
+    if (mongoose.connections[0].readyState) {
+        // Use current db connection
+        console.log("Using current connection");
+        return handler(req, res);
+    }
+    // Use new db connection
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("New connection");
+    return handler(req, res);
+}
 
-mongoose.connect(process.env.MONGO_URI)
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-
-db.once('open', () => {
-    console.log('connected');
-});
-
-module.exports = db
+export default connectDb;

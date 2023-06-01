@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const users = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name: { type: String, },
     email: { type: String, trim: true },
     telephone: { type: String, trim: true },
@@ -22,4 +22,4 @@ const users = new mongoose.Schema({
     is_admin: { type: Boolean, default: false },
 });
 
-export default mongoose.models.users || mongoose.model("users", users);
+export default mongoose.models.User || mongoose.model("User", UserSchema);

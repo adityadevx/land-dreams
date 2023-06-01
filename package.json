@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.7.0",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "crypto": "^1.0.1",
     "framer-motion": "^10.12.16",
     "mongoose": "^7.2.2",
     "next": "13.4.4",

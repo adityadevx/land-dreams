@@ -30,27 +30,24 @@ import {
     Bell as IconBell,
     ChevronDown as IconChevronDown
 } from "react-feather";
+import { useRouter } from 'next/router';
 import {
-    FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiStar,
-    FiSettings,
     FiMenu,
-    FiBell,
     FiChevronDown,
 } from 'react-icons/fi';
 
 const LinkItems = [
-    { name: "Home", icon: IconHome },
-    { name: "Trending", icon: IconTrendingUp },
-    { name: "Explore", icon: IconCompass },
-    { name: "Favorites", icon: IconStar },
-    { name: "Settings", icon: IconSettings }
+    { name: "Dashboard", icon: IconHome, href: "/user/dashboard" },
+    { name: "Trending", icon: IconTrendingUp ,href: "/user/trending" },
+    { name: "Explore", icon: IconCompass, href: "/user/explore" },
+    { name: "Favorites", icon: IconStar, href: "/user/favorites" },
+    { name: "Settings", icon: IconSettings, href: "/user/settings" }
 ];
 
 export default function NavHeader({ children }) {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const router = useRouter();
+    
     return (
         <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
             <SidebarContent
@@ -80,6 +77,7 @@ export default function NavHeader({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+    const router = useRouter();
     return (
         <Box
             transition="3s ease"
@@ -98,11 +96,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
             </Flex>
             {LinkItems.map(link => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem key={link.name} icon={link.icon} onClick={()=>{router.push(link.href)}} >
                     {link.name}
                 </NavItem>
             ))}
+
         </Box>
+
     )
 }
 
@@ -217,5 +217,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 </Flex>
             </HStack>
         </Flex>
+
     )
 }
